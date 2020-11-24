@@ -1,0 +1,19 @@
+import random
+
+#computer_loses = {'rock': 'scissors', 'scissors': 'paper', 'paper': 'rock'}
+computer_wins = {'scissors': 'rock', 'rock': 'paper', 'paper': 'scissors'}
+
+game_possibilities = ['scissors', 'paper', 'rock']
+player_choice = input()
+
+computer_choice = random.choice(game_possibilities)
+
+#print(computer_wins[player_choice])
+#print(computer_loses[player_choice])
+
+if computer_choice == player_choice:
+    print(f'There is a draw ({computer_choice})')
+elif player_choice == computer_wins[computer_choice]:
+    print(f'Well done. The computer chose {computer_choice} and failed')
+else: #(player_choice == computer_loses[player_choice]:
+    print(f'Sorry, but the computer chose {computer_choice}')
