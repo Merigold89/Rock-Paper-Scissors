@@ -1,0 +1,27 @@
+import random
+
+player = { 'computer_loses': {'scissors': 'rock', 'paper': 'scissors', 'rock': 'paper'},
+           'computer_wins': {'scissors': 'paper', 'paper': 'scissors', 'rock': 'scissors'},
+           'computer_draws': {'scissors': 'scissors', 'paper': 'paper', 'rock': 'rock'}}
+
+game_possibilities = ['scissors', 'paper', 'rock']
+player_choice = input()
+
+
+computer_choice = random.choice(game_possibilities)
+
+if computer_choice == player_choice:
+    print(f'There is a draw ({computer_choice})')
+elif computer_choice != player_choice:
+    if (computer_choice == 'scissors') and (player_choice == 'paper'):
+        print(f'Sorry, but the computer chose {computer_choice}')
+    elif (computer_choice == 'scissors') and (player_choice == 'rock'):
+        print(f'Well done. The computer chose {computer_choice} and failed')
+    elif (computer_choice == 'rock') and (player_choice == 'scissors'):
+        print(f'Sorry, but the computer chose {computer_choice}')
+    elif (computer_choice == 'rock') and (player_choice == 'paper'):
+        print(f'Well done. The computer chose {computer_choice} and failed')
+    elif (computer_choice == 'paper') and (player_choice == 'rock'):
+        print(f'Sorry, but the computer chose {computer_choice}')
+    elif (computer_choice == 'paper') and (player_choice == 'scissors'):
+        print(f'Well done. The computer chose {computer_choice} and failed')
