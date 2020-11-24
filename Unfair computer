@@ -1,0 +1,8 @@
+player = input()
+
+if player == 'scissors':
+    print('Sorry, but the computer chose rock')
+elif player == 'paper':
+    print('Sorry, but the computer chose scissors')
+elif player == 'rock':
+    print('Sorry, but the computer chose paper')
