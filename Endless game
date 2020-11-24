@@ -1,0 +1,34 @@
+import random
+
+
+class Game:
+
+    # computer_loses = {'rock': 'scissors', 'scissors': 'paper', 'paper': 'rock'}
+    computer_wins = {'scissors': 'rock', 'rock': 'paper', 'paper': 'scissors'}
+    game_possibilities = ['scissors', 'paper', 'rock']
+
+    def clash(self, computer_choice, player_choice):
+        if computer_choice == player_choice:
+            print(f'There is a draw ({computer_choice})')
+        elif player_choice == Game.computer_wins[computer_choice]:
+            print(f'Well done. The computer chose {computer_choice} and failed')
+        else: # (player_choice == computer_loses[player_choice]:
+            print(f'Sorry, but the computer chose {computer_choice}')
+
+    def choose(self, player_choice):
+        player_choice = player_choice
+        computer_choice = random.choice(Game.game_possibilities)
+        if player_choice in Game.game_possibilities:
+            self.clash(computer_choice, player_choice)
+            return True
+        elif player_choice == '!exit':
+            print('Bye!')
+            return False
+        else:
+            print('Invalid input')
+            return True
+
+
+game = Game()
+while game.choose(input()):
+    pass
