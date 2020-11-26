@@ -1,0 +1,84 @@
+import random
+
+class Game:
+    # computer_loses = {'roc k': 'scissors', 'scissors': 'paper', 'paper': 'rock'}
+    computer_wins = {'scissors': 'rock', 'rock': 'paper', 'paper': 'scissors'}
+    game_possibilities = ['scissors', 'paper', 'rock']
+
+    def __init__(self):
+        print(f'Enter your name:')
+        self.name = input()
+        self.value = 0
+        Game.welcome(self)
+
+    def welcome(self):
+        print(f'\nHello, {self.name}')
+        Game.ranking(self)  # immediately rewrites 0 after creating a new person
+
+    def ranking(self):
+        file = open('rating.txt', 'r+')
+        text = file.read()
+        lst = text.split()  # convert text to list
+        ranking = Game.convert(lst)
+        if self.name in lst:
+            result = ranking[self.name]
+            return result
+        else:
+            self.value = 0
+            file.write(f'\n{self.name} {self.value}')
+        file.close()
+
+    def new_score(self):
+        file = open('rating.txt', 'r+')
+        text = file.read()
+        lst = text.split()
+        ranking = Game.convert(lst)
+        file.close()
+        if self.value > 0:
+            new_score = int(ranking[self.name]) + self.value
+            old_person_data = '{} {}'.format(self.name, ranking[self.name])
+            new_person_data = '{} {}'.format(self.name, new_score)
+            txt2 = text.replace(old_person_data, new_person_data, 1)
+            file = open('rating.txt', 'w')
+            file.write(txt2)
+        file.close()
+
+    def convert(lst):
+        repl_dictionary = {lst[i]: lst[i + 1] for i in range(0, len(lst), 2)}
+        # points were assigned as values to a given person (key)
+        return repl_dictionary
+
+    def clash(self):
+        if self.computer_choice == self.player_choice:
+            print(f'There is a draw ({self.computer_choice})')
+            self.value = 50
+            Game.new_score(self)
+        elif self.player_choice == Game.computer_wins[self.computer_choice]:
+            print(f'Well done. The computer chose {self.computer_choice} and failed')
+            self.value = 100
+            Game.new_score(self)
+        else:  # (player_choice == computer_loses[player_choice]:
+            print(f'Sorry, but the computer chose {self.computer_choice}')
+            self.value = 0
+            Game.new_score(self)
+
+    def choose(self, player_choice):
+        self.player_choice = player_choice
+        self.computer_choice = random.choice(Game.game_possibilities)
+        if self.player_choice in Game.game_possibilities:
+            self.clash()
+            return True
+        elif self.player_choice == '!rating':
+            print(Game.ranking(self))
+            return True
+        elif self.player_choice == '!exit':
+            print('Bye!')
+            return False
+        else:
+            print('Invalid input')
+            return True
+
+game = Game()
+while game.choose(input()):
+    pass
+
